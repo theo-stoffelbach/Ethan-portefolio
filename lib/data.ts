@@ -1,5 +1,5 @@
 export type TrackType = 'Composition' | 'Interprétation';
-export type Category = 'Nocturnes' | 'Compositions-Vol-1' | 'Chopin-Sonatas' | 'Autre';
+export type Category = 'Nocturnes' | 'Compositions-Vol-1' | 'Valse' | 'Autre';
 
 export interface Track {
   id: string;
@@ -31,36 +31,45 @@ export const availableTags: string[] = [
 ];
 
 export const tracks: Track[] = [
-  // Nocturnes
   {
-    id: 'nocturne-1',
-    title: 'Nocturne No. 1 en Mi Bémol Majeur',
-    duration: '5:32',
-    type: 'Interprétation',
-    category: 'Nocturnes',
-    artist: 'Frédéric Chopin',
-    tags: ['Classique', 'Romantique', 'Nocturne', 'Calme'],
-    file: '/music/Nocturnes/nocturne-1.mp3',
+    id: 'Orginal-1',
+    title: 'Lettre a mon ami',
+    duration: '0:56',
+    type: 'Composition',
+    category: 'Autre',
+    artist: 'Ethan Desmarest',
+    tags: ['Original', 'Calme'],
+    file: '/music/Original/Lettre a mon ami.mp3',
   },
   {
-    id: 'nocturne-2',
-    title: 'Nocturne No. 2 en Mi Bémol Majeur',
-    duration: '4:15',
-    type: 'Interprétation',
-    category: 'Nocturnes',
-    artist: 'Frédéric Chopin',
-    tags: ['Classique', 'Romantique', 'Nocturne', 'Calme'],
-    file: '/music/Nocturnes/nocturne-2.mp3',
+    id: 'Orginal-2',
+    title: 'Morphéus',
+    duration: '0:22',
+    type: 'Composition',
+    category: 'Autre',
+    artist: 'Ethan Desmarest',
+    tags: ['Original', 'Romantique', 'Calme'],
+    file: '/music/Original/Morpheus.mp3',
   },
   {
-    id: 'nocturne-3',
-    title: 'Nocturne No. 19 en Mi Mineur',
-    duration: '6:48',
-    type: 'Interprétation',
-    category: 'Nocturnes',
-    artist: 'Frédéric Chopin',
-    tags: ['Classique', 'Romantique', 'Nocturne', 'Mélancolique'],
-    file: '/music/Nocturnes/nocturne-3.mp3',
+    id: 'Orginal-3',
+    title: 'valse souvenir',
+    duration: '0:25',
+    type: 'Composition',
+    category: 'Valse',
+    artist: 'Ethan Desmarest',
+    tags: ['Classique', 'Romantique', 'Calme'],
+    file: '/music/Original/valse souvenir.mp3',
+  },
+  {
+    id: 'Orginal-4',
+    title: 'Matin',
+    duration: '0:23',
+    type: 'Composition',
+    category: 'Valse',
+    artist: 'Ethan Desmarest',
+    tags: ['Classique', 'Romantique', 'Calme'],
+    file: '/music/Original/matin.mp3',
   },
   // Compositions
   {
@@ -68,7 +77,7 @@ export const tracks: Track[] = [
     title: 'Rêverie en Bleu',
     duration: '4:22',
     type: 'Composition',
-    category: 'Compositions-Vol-1',
+    category: 'Autre',
     artist: 'Ethan Desmarest',
     tags: ['Original', 'Calme', 'Mélancolique'],
     file: '/music/Compositions-Vol-1/reverie-bleu.mp3',

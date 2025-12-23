@@ -2,45 +2,45 @@ export default function Videos() {
   const videos = [
     {
       id: 1,
-      title: 'Concert en solo - Salle Gaveau',
-      date: 'Novembre 2023',
-      category: 'Concert',
-      thumbnail: 'bg-gradient-to-br from-violet-500/20 to-blue-500/20',
+      title: "Lettre a mon ami",
+      date: "Novembre 2023",
+      category: "Concert",
+      thumbnail: "bg-gradient-to-br from-violet-500/20 to-blue-500/20",
     },
     {
       id: 2,
-      title: 'Masterclass - Interprétation Chopin',
-      date: 'Octobre 2023',
-      category: 'Masterclass',
-      thumbnail: 'bg-gradient-to-br from-blue-500/20 to-indigo-500/20',
+      title: "Masterclass - Interprétation Chopin",
+      date: "Octobre 2023",
+      category: "Masterclass",
+      thumbnail: "bg-gradient-to-br from-blue-500/20 to-indigo-500/20",
     },
     {
       id: 3,
-      title: 'Performance en chambre - Trio',
-      date: 'Septembre 2023',
-      category: 'Collaboration',
-      thumbnail: 'bg-gradient-to-br from-indigo-500/20 to-purple-500/20',
+      title: "Performance en chambre - Trio",
+      date: "Septembre 2023",
+      category: "Collaboration",
+      thumbnail: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
     },
     {
       id: 4,
-      title: 'Concert d\'orchestre symphonique',
-      date: 'Août 2023',
-      category: 'Concert',
-      thumbnail: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
+      title: "Concert d'orchestre symphonique",
+      date: "Août 2023",
+      category: "Concert",
+      thumbnail: "bg-gradient-to-br from-purple-500/20 to-pink-500/20",
     },
     {
       id: 5,
-      title: 'Récital privé - Collections personnelles',
-      date: 'Juillet 2023',
-      category: 'Récital',
-      thumbnail: 'bg-gradient-to-br from-pink-500/20 to-rose-500/20',
+      title: "Récital privé - Collections personnelles",
+      date: "Juillet 2023",
+      category: "Récital",
+      thumbnail: "bg-gradient-to-br from-pink-500/20 to-rose-500/20",
     },
     {
       id: 6,
-      title: 'Présentation des compositions originales',
-      date: 'Juin 2023',
-      category: 'Création',
-      thumbnail: 'bg-gradient-to-br from-rose-500/20 to-red-500/20',
+      title: "Présentation des compositions originales",
+      date: "Juin 2023",
+      category: "Création",
+      thumbnail: "bg-gradient-to-br from-rose-500/20 to-red-500/20",
     },
   ];
 
@@ -48,7 +48,9 @@ export default function Videos() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       {/* Header */}
       <div className="mb-12 sm:mb-16">
-        <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white mb-4">Vidéos & Performances</h1>
+        <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white mb-4">
+          Vidéos & Performances
+        </h1>
         <p className="text-zinc-300 font-sans text-lg">
           Découvrez mes concerts, masterclasses et performances en vidéo
         </p>
@@ -68,7 +70,11 @@ export default function Videos() {
             >
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
                 <div className="w-16 h-16 rounded-full bg-violet-500 group-hover:bg-violet-600 flex items-center justify-center transition-colors">
-                  <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+                  <svg
+                    className="w-8 h-8 text-white ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
                   </svg>
                 </div>
@@ -82,7 +88,9 @@ export default function Videos() {
                   {video.title}
                 </h3>
               </div>
-              <p className="text-zinc-400 font-sans text-sm mb-3">{video.date}</p>
+              <p className="text-zinc-400 font-sans text-sm mb-3">
+                {video.date}
+              </p>
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 bg-violet-500/20 text-violet-300 text-xs rounded-full font-sans font-medium">
                   {video.category}
@@ -115,7 +123,8 @@ export default function Videos() {
           />
         </svg>
         <p className="text-zinc-400 font-sans">
-          Les vidéos seront disponibles bientôt. Intégrez vos performances YouTube ou Vimeo ici.
+          Les vidéos seront disponibles bientôt. Intégrez vos performances
+          YouTube ou Vimeo ici.
         </p>
       </div>
 
