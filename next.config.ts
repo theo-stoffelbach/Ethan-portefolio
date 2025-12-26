@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
     // Désactiver ESLint lors du build (optionnel)
     ignoreDuringBuilds: false,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+        pathname: "/vi/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -14,11 +14,23 @@ export interface Track {
 
 // Liste des artistes disponibles
 export const artists: string[] = [
-  'Ethan Desmarest',
+  'Ethan Stoffelbach Desmarest',
   'Frédéric Chopin',
+  'Jean-Sébastien Bach',
+  'Edvard Grieg',
+  'Jean Sibelius',
 ];
 
-// Liste des tags disponibles
+// Liste des ambiances disponibles
+export const ambiances: string[] = [
+  'Calme',
+  'Énergique',
+  'Mélancolique',
+  'Nostalgique',
+  'Joyeux',
+];
+
+// Liste des tags disponibles (pour filtrage interne)
 export const availableTags: string[] = [
   'Classique',
   'Romantique',
@@ -37,8 +49,8 @@ export const tracks: Track[] = [
     duration: '0:56',
     type: 'Composition',
     category: 'Autre',
-    artist: 'Ethan Desmarest',
-    tags: ['Original', 'Calme'],
+    artist: 'Ethan Stoffelbach Desmarest',
+    tags: ['Mélancolique', 'Nostalgique'],
     file: '/music/Original/Lettre a mon ami.mp3',
   },
   {
@@ -47,8 +59,8 @@ export const tracks: Track[] = [
     duration: '0:22',
     type: 'Composition',
     category: 'Autre',
-    artist: 'Ethan Desmarest',
-    tags: ['Original', 'Romantique', 'Calme'],
+    artist: 'Ethan Stoffelbach Desmarest',
+    tags: ['Calme', 'Nostalgique'],
     file: '/music/Original/Morpheus.mp3',
   },
   {
@@ -57,8 +69,8 @@ export const tracks: Track[] = [
     duration: '0:25',
     type: 'Composition',
     category: 'Valse',
-    artist: 'Ethan Desmarest',
-    tags: ['Classique', 'Romantique', 'Calme'],
+    artist: 'Ethan Stoffelbach Desmarest',
+    tags: ['Nostalgique', 'Calme'],
     file: '/music/Original/valse souvenir.mp3',
   },
   {
@@ -67,81 +79,19 @@ export const tracks: Track[] = [
     duration: '0:23',
     type: 'Composition',
     category: 'Valse',
-    artist: 'Ethan Desmarest',
-    tags: ['Classique', 'Romantique', 'Calme'],
+    artist: 'Ethan Stoffelbach Desmarest',
+    tags: ['Joyeux', 'Calme'],
     file: '/music/Original/matin.mp3',
   },
-  // Compositions
   {
-    id: 'comp-1',
-    title: 'Rêverie en Bleu',
-    duration: '4:22',
-    type: 'Composition',
+    id: 'Bach-1',
+    title: 'Invention no 8',
+    duration: '1:20',
+    type: 'Interprétation',
     category: 'Autre',
-    artist: 'Ethan Desmarest',
-    tags: ['Original', 'Calme', 'Mélancolique'],
-    file: '/music/Compositions-Vol-1/reverie-bleu.mp3',
-  },
-  {
-    id: 'comp-2',
-    title: 'Aube Silencieuse',
-    duration: '3:58',
-    type: 'Composition',
-    category: 'Compositions-Vol-1',
-    artist: 'Ethan Desmarest',
-    tags: ['Original', 'Calme'],
-    file: '/music/Compositions-Vol-1/aube-silencieuse.mp3',
-  },
-  {
-    id: 'comp-3',
-    title: 'Tempête d\'Émotions',
-    duration: '5:45',
-    type: 'Composition',
-    category: 'Compositions-Vol-1',
-    artist: 'Ethan Desmarest',
-    tags: ['Original', 'Énergique'],
-    file: '/music/Compositions-Vol-1/tempete-emotions.mp3',
-  },
-  {
-    id: 'comp-4',
-    title: 'Sérénité Cristalline',
-    duration: '4:12',
-    type: 'Composition',
-    category: 'Compositions-Vol-1',
-    artist: 'Ethan Desmarest',
-    tags: ['Original', 'Calme'],
-    file: '/music/Compositions-Vol-1/serenite-cristalline.mp3',
-  },
-  // Chopin
-  {
-    id: 'chopin-1',
-    title: 'Sonate No. 2 en Si Bémol Mineur - I. Grave',
-    duration: '7:30',
-    type: 'Interprétation',
-    category: 'Chopin-Sonatas',
-    artist: 'Frédéric Chopin',
-    tags: ['Classique', 'Romantique', 'Sonate', 'Énergique'],
-    file: '/music/Chopin-Sonatas/chopin-sonata-1.mp3',
-  },
-  {
-    id: 'chopin-2',
-    title: 'Sonate No. 2 en Si Bémol Mineur - II. Scherzo',
-    duration: '4:22',
-    type: 'Interprétation',
-    category: 'Chopin-Sonatas',
-    artist: 'Frédéric Chopin',
-    tags: ['Classique', 'Romantique', 'Sonate', 'Énergique'],
-    file: '/music/Chopin-Sonatas/chopin-sonata-2.mp3',
-  },
-  {
-    id: 'chopin-3',
-    title: 'Sonate No. 2 en Si Bémol Mineur - III. Marche Funèbre',
-    duration: '6:15',
-    type: 'Interprétation',
-    category: 'Chopin-Sonatas',
-    artist: 'Frédéric Chopin',
-    tags: ['Classique', 'Romantique', 'Sonate', 'Mélancolique'],
-    file: '/music/Chopin-Sonatas/chopin-sonata-3.mp3',
+    artist: 'Jean-Sébastien Bach',
+    tags: ['Calme', 'Joyeux'],
+    file: '/music/Bach/invention no 8.mp3',
   },
 ];
 
