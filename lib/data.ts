@@ -1,5 +1,5 @@
 export type TrackType = 'Composition' | 'Interprétation';
-export type Category = 'Nocturnes' | 'Compositions-Vol-1' | 'Valse' | 'Autre';
+export type Category = 'Nocturnes' | 'Compositions-Vol-1' | 'Valse' | 'Chopin-Sonatas' | 'Autre';
 
 export interface Track {
   id: string;
