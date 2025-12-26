@@ -31,12 +31,12 @@ jobs:
           DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=no" \
-            --exclude '.git' \
-            --exclude 'node_modules' \
-            --exclude '.github' \
-            ./ $DEPLOY_USER@$DEPLOY_HOST:deploy-temp/
+          # Créer une archive tar sans .git et node_modules
+          tar --exclude='.git' --exclude='node_modules' --exclude='.github' -czf deploy.tar.gz .
+          
+          # Copier l'archive via scp
+          scp -i ~/.ssh/deploy_key -P $DEPLOY_PORT -o StrictHostKeyChecking=no \
+            deploy.tar.gz $DEPLOY_USER@$DEPLOY_HOST:/home/GitHub/
 
       - name: Build and restart Docker
         env:
@@ -45,10 +45,14 @@ jobs:
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
           ssh -i ~/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST << 'EOF'
-            # Copier les fichiers depuis deploy-temp vers le répertoire final
-            sudo rsync -av --delete ~/deploy-temp/ /volume1/Docker_data/Ethan-portefolio/ \
-              --exclude '.git' \
-              --exclude 'node_modules'
+            # Extraire l'archive
+            cd /home/GitHub
+            rm -rf deploy-temp
+            mkdir -p deploy-temp
+            tar -xzf deploy.tar.gz -C deploy-temp
+            
+            # Copier vers le répertoire final
+            sudo rsync -av --delete /home/GitHub/deploy-temp/ /volume1/Docker_data/Ethan-portefolio/
             
             # Build l'image localement
             cd /volume1/Docker_data/Ethan-portefolio
@@ -58,6 +62,10 @@ jobs:
             cd /volume1/Docker_data/ethan-portfolio
             sudo docker compose down
             sudo docker compose up -d
+            
+            # Nettoyer
+            rm -f /home/GitHub/deploy.tar.gz
+            rm -rf /home/GitHub/deploy-temp
             
             echo "Déploiement terminé avec succès!"
           EOF
