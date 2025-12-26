@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to Server (Fixed)
 
 on:
   push:
@@ -35,7 +35,8 @@ jobs:
             -e "ssh -i ~/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=no" \
             --exclude '.git' \
             --exclude 'node_modules' \
-            ./ $DEPLOY_USER@$DEPLOY_HOST:~/ethan-portfolio/
+            --exclude '.github' \
+            ./ $DEPLOY_USER@$DEPLOY_HOST:/volume1/Docker_data/Ethan-portefolio/
 
       - name: Build and restart Docker
         env:
@@ -44,8 +45,15 @@ jobs:
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
           ssh -i ~/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST << 'EOF'
-            cd ~/ethan-portfolio
+            cd /volume1/Docker_data/Ethan-portefolio
+            
+            # Build l'image localement
+            docker build -t ethan-portfolio:local .
+            
+            # Redémarrer le container
+            cd /volume1/Docker_data/ethan-portfolio
             docker compose down
-            docker compose build --no-cache
             docker compose up -d
+            
+            echo "Déploiement terminé avec succès!"
           EOF
