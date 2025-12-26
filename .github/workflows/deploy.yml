@@ -1,4 +1,4 @@
-name: Deploy to Server (Fixed)
+name: Deploy to Server
 
 on:
   push:
@@ -6,56 +6,30 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup SSH
+      - name: Deploy and rebuild
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
+          # Setup SSH
           mkdir -p ~/.ssh
           echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p $DEPLOY_PORT $DEPLOY_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
-          chmod 644 ~/.ssh/known_hosts
-
-      - name: Deploy to server
-        env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          # Créer une archive tar sans .git et node_modules
-          tar --exclude='.git' --exclude='node_modules' --exclude='.github' -czf deploy.tar.gz .
           
-          # Copier l'archive via scp
-          scp -i ~/.ssh/deploy_key -P $DEPLOY_PORT -o StrictHostKeyChecking=no \
-            deploy.tar.gz $DEPLOY_USER@$DEPLOY_HOST:/home/GitHub/
-
-      - name: Build and restart Docker
-        env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-        run: |
+          # Connecter au serveur et rebuild
           ssh -i ~/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST << 'EOF'
-            # Extraire l'archive
-            cd /home/GitHub
-            rm -rf deploy-temp
-            mkdir -p deploy-temp
-            tar -xzf deploy.tar.gz -C deploy-temp
-            
-            # Copier vers le répertoire final
-            sudo rsync -av --delete /home/GitHub/deploy-temp/ /volume1/Docker_data/Ethan-portefolio/
-            
-            # Build l'image localement
+            # Aller dans le répertoire et récupérer le code
             cd /volume1/Docker_data/Ethan-portefolio
+            git pull origin main
+            
+            # Rebuild l'image Docker avec le nouveau code
             sudo docker build -t ethan-portfolio:local .
             
             # Redémarrer le container
@@ -63,9 +37,5 @@ jobs:
             sudo docker compose down
             sudo docker compose up -d
             
-            # Nettoyer
-            rm -f /home/GitHub/deploy.tar.gz
-            rm -rf /home/GitHub/deploy-temp
-            
-            echo "Déploiement terminé avec succès!"
+            echo "Déploiement terminé !"
           EOF
