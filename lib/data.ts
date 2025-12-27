@@ -117,3 +117,50 @@ export function getTracksByTag(tag: string): Track[] {
 export function getAllTracks(): Track[] {
   return tracks;
 }
+
+// ===== VIDEOS =====
+
+export type VideoType = 'Composition' | 'Interprétation';
+
+export interface Video {
+  id: string;
+  title: string;
+  duration: string;
+  type: VideoType;
+  artist: string;
+  tags: string[];
+  file: string;
+  poster?: string;
+  date: string;
+}
+
+export const videos: Video[] = [
+  // Ajoute tes videos ici, exemple:
+  // {
+  //   id: 'video-1',
+  //   title: 'Chopin - Prelude Op.28 No.20',
+  //   duration: '0:58',
+  //   type: 'Interprétation',
+  //   artist: 'Frédéric Chopin',
+  //   tags: ['Calme', 'Mélancolique'],
+  //   file: '/videos/chopin-prelude.mp4',
+  //   poster: '/videos/thumbnails/chopin-prelude.jpg',
+  //   date: '21 décembre 2024',
+  // },
+];
+
+export function getVideosByType(type: VideoType): Video[] {
+  return videos.filter((video) => video.type === type);
+}
+
+export function getVideosByArtist(artist: string): Video[] {
+  return videos.filter((video) => video.artist === artist);
+}
+
+export function getVideosByTag(tag: string): Video[] {
+  return videos.filter((video) => video.tags.includes(tag));
+}
+
+export function getAllVideos(): Video[] {
+  return videos;
+}
