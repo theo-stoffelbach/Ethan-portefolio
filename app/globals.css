@@ -210,3 +210,29 @@ button {
 .section-divider {
   @apply h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent;
 }
+
+/* ===== ACCESSIBILITY: Reduced Motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-float {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
