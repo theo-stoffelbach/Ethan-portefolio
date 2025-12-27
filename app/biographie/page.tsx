@@ -73,7 +73,7 @@ export default function Biographie() {
                   Février 2023
                 </p>
               </div>
-              <div className="w-4 h-4 bg-violet-500 rounded-full mt-2 -ml-12"></div>
+              <div className="hidden sm:block w-4 h-4 bg-violet-500 rounded-full mt-2 -ml-12"></div>
             </div>
             <p className="text-zinc-300 font-sans leading-relaxed">
               J'ai travailler dans une boutique de partition de musique en
@@ -93,7 +93,7 @@ export default function Biographie() {
                   2023 - 2026
                 </p>
               </div>
-              <div className="w-4 h-4 bg-violet-500 rounded-full mt-2 -ml-12"></div>
+              <div className="hidden sm:block w-4 h-4 bg-violet-500 rounded-full mt-2 -ml-12"></div>
             </div>
             <p className="text-zinc-300 font-sans leading-relaxed">
               Cette formation m'as permis d'évolué mon profils artistique au
