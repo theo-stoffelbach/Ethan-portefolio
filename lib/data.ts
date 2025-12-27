@@ -129,23 +129,48 @@ export interface Video {
   type: VideoType;
   artist: string;
   tags: string[];
-  file: string;
-  poster?: string;
   date: string;
+  // Pour les videos locales (.mp4)
+  file?: string;
+  poster?: string;
+  // Pour les videos YouTube
+  youtubeUrl?: string;
 }
 
 export const videos: Video[] = [
-  // Ajoute tes videos ici, exemple:
+  // === VIDEOS YOUTUBE ===
+  {
+    id: 'yt-1',
+    title: 'Chopin - Prelude Op.28 No.20',
+    duration: '0:58',
+    type: 'Interprétation',
+    artist: 'Frédéric Chopin',
+    tags: ['Calme', 'Mélancolique'],
+    date: '21 décembre 2024',
+    youtubeUrl: 'https://youtube.com/shorts/_7tdFHmC88Y',
+  },
+  {
+    id: 'yt-2',
+    title: 'Chopin - Valse en mi mineur Posthume',
+    duration: '3:45',
+    type: 'Interprétation',
+    artist: 'Frédéric Chopin',
+    tags: ['Énergique', 'Nostalgique'],
+    date: '13 décembre 2024',
+    youtubeUrl: 'https://youtu.be/uIMWJN2rQWU',
+  },
+  // === VIDEOS LOCALES (.mp4) ===
+  // Exemple:
   // {
-  //   id: 'video-1',
-  //   title: 'Chopin - Prelude Op.28 No.20',
-  //   duration: '0:58',
-  //   type: 'Interprétation',
-  //   artist: 'Frédéric Chopin',
-  //   tags: ['Calme', 'Mélancolique'],
-  //   file: '/videos/chopin-prelude.mp4',
-  //   poster: '/videos/thumbnails/chopin-prelude.jpg',
-  //   date: '21 décembre 2024',
+  //   id: 'local-1',
+  //   title: 'Ma composition originale',
+  //   duration: '2:30',
+  //   type: 'Composition',
+  //   artist: 'Ethan Stoffelbach Desmarest',
+  //   tags: ['Calme', 'Nostalgique'],
+  //   date: '1 janvier 2025',
+  //   file: '/videos/ma-composition.mp4',
+  //   poster: '/videos/thumbnails/ma-composition.jpg',
   // },
 ];
 

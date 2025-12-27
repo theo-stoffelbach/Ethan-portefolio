@@ -8,7 +8,21 @@ import {
   artists,
   ambiances,
   VideoType,
+  Video,
 } from "@/lib/data";
+
+// Extraire l'ID YouTube d'une URL
+function getYouTubeId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?/]+)/,
+    /youtube\.com\/embed\/([^&?/]+)/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+}
 
 export default function Videos() {
   const [selectedType, setSelectedType] = useState<VideoType | "all">("all");
@@ -255,16 +269,33 @@ export default function Videos() {
               className="animate-on-scroll glass-card rounded-xl overflow-hidden"
               style={{ transitionDelay: `${Math.min(index * 100, 300)}ms` }}
             >
-              {/* Video Player */}
-              <VideoPlayer
-                title={video.title}
-                src={video.file}
-                poster={video.poster}
-                duration={video.duration}
-              />
+              {/* Video Player - YouTube ou Local */}
+              {video.youtubeUrl ? (
+                // YouTube Embed
+                <div className="aspect-video relative">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${getYouTubeId(video.youtubeUrl)}`}
+                    title={video.title}
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              ) : video.file ? (
+                // Local Video Player
+                <VideoPlayer
+                  title={video.title}
+                  src={video.file}
+                  poster={video.poster}
+                  duration={video.duration}
+                />
+              ) : null}
 
               {/* Video Info */}
               <div className="p-5">
+                <h3 className="text-lg font-sans font-semibold text-white mb-3">
+                  {video.title}
+                </h3>
                 <div className="flex flex-wrap items-center gap-3 mb-2">
                   <span className="px-3 py-1 bg-violet-500/20 text-violet-300 text-xs rounded-full font-sans font-medium">
                     {video.type}
@@ -275,6 +306,10 @@ export default function Videos() {
                   <span className="text-zinc-600">•</span>
                   <span className="text-zinc-500 font-sans text-sm">
                     {video.date}
+                  </span>
+                  <span className="text-zinc-600">•</span>
+                  <span className="text-zinc-500 font-sans text-sm">
+                    {video.duration}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-2 mt-3">
