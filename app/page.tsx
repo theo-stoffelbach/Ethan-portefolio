@@ -6,6 +6,26 @@ import { useState, useEffect } from "react";
 import { tracks } from "@/lib/data";
 import AudioPlayer from "@/components/AudioPlayer";
 
+// Fonction pour extraire l'ID YouTube d'une URL ou embedId
+function getYouTubeId(urlOrId: string): string {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?/]+)/,
+    /youtube\.com\/embed\/([^&?/]+)/,
+  ];
+  for (const pattern of patterns) {
+    const match = urlOrId.match(pattern);
+    if (match) return match[1];
+  }
+  // Si c'est déjà un ID simple
+  return urlOrId;
+}
+
+// Fonction pour obtenir la miniature YouTube
+function getYouTubeThumbnail(embedId: string): string {
+  const id = getYouTubeId(embedId);
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
+
 export default function Home() {
   const [formData, setFormData] = useState({
     name: "",
@@ -291,17 +311,26 @@ export default function Home() {
                 className="animate-on-scroll group rounded-xl overflow-hidden glass-card card-hover"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Video Placeholder */}
-                <div className="aspect-video bg-gradient-to-br from-violet-500/20 via-purple-500/10 to-zinc-900 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                  <div className="relative z-10 w-14 h-14 rounded-full bg-violet-500/90 group-hover:bg-violet-500 group-hover:scale-110 flex items-center justify-center transition-all duration-300 shadow-lg shadow-violet-500/30">
-                    <svg
-                      className="w-6 h-6 text-white ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                {/* Video Thumbnail */}
+                <div className="aspect-video relative overflow-hidden">
+                  <Image
+                    src={getYouTubeThumbnail(video.embedId)}
+                    alt={video.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-violet-500/90 group-hover:bg-violet-500 group-hover:scale-110 flex items-center justify-center transition-all duration-300 shadow-lg shadow-violet-500/30">
+                      <svg
+                        className="w-6 h-6 text-white ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
