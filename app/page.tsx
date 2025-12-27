@@ -109,6 +109,7 @@ export default function Home() {
                   src="/images/portrait.webp"
                   alt="Ethan Desmarest - Pianiste"
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   priority
                 />
@@ -317,8 +318,8 @@ export default function Home() {
                     src={getYouTubeThumbnail(video.embedId)}
                     alt={video.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    unoptimized
                   />
                   <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
                   <div className="absolute inset-0 flex items-center justify-center">
