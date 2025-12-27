@@ -1,39 +1,17 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import AudioPlayer from '@/components/AudioPlayer';
 import { tracks as allTracks, artists, ambiances, TrackType } from '@/lib/data';
+import { useScrollAnimation } from '@/lib/hooks/useScrollAnimation';
 
 export default function Musique() {
   const [selectedType, setSelectedType] = useState<TrackType | 'all'>('all');
   const [selectedArtist, setSelectedArtist] = useState<string | 'all'>('all');
   const [selectedTag, setSelectedTag] = useState<string | 'all'>('all');
 
-  // Scroll animation observer - re-run when filteredTracks changes
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    // Small delay to ensure DOM is updated
-    const timer = setTimeout(() => {
-      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-        observer.observe(el);
-      });
-    }, 50);
-
-    return () => {
-      clearTimeout(timer);
-      observer.disconnect();
-    };
-  }, [selectedType, selectedArtist, selectedTag]);
+  // Scroll animation observer - re-run when filters change
+  useScrollAnimation([selectedType, selectedArtist, selectedTag]);
 
   const clearFilters = () => {
     setSelectedType('all');

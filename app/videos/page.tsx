@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
+import { useScrollAnimation } from "@/lib/hooks/useScrollAnimation";
 
 // Fonction pour extraire l'ID YouTube d'une URL
 function getYouTubeId(url: string): string | null {
@@ -23,12 +24,12 @@ function getYouTubeThumbnail(url: string): string | null {
   return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 }
 
-// Types (mêmes que musique)
-type VideoType = "Composition" | "Interprétation";
+// Types
+type VideoType = "Composition" | "Interpretation";
 type Ambiance =
   | "Calme"
-  | "Énergique"
-  | "Mélancolique"
+  | "Energique"
+  | "Melancolique"
   | "Nostalgique"
   | "Joyeux";
 
@@ -36,12 +37,12 @@ interface Video {
   id: number;
   title: string;
   date: string;
-  duration: string; // Format "MM:SS"
+  duration: string;
   type: VideoType;
   artist: string;
   tags: Ambiance[];
   thumbnail: string;
-  url?: string; // Lien YouTube ou Vimeo
+  url?: string;
 }
 
 // Fonction pour calculer le total des minutes
@@ -104,30 +105,7 @@ export default function Videos() {
   );
 
   // Scroll animation observer - re-run when filters change
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    // Small delay to ensure DOM is updated
-    const timer = setTimeout(() => {
-      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-        observer.observe(el);
-      });
-    }, 50);
-
-    return () => {
-      clearTimeout(timer);
-      observer.disconnect();
-    };
-  }, [selectedType, selectedArtist, selectedAmbiance]);
+  useScrollAnimation([selectedType, selectedArtist, selectedAmbiance]);
 
   const clearFilters = () => {
     setSelectedType("all");
