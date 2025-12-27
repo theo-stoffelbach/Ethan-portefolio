@@ -262,11 +262,11 @@ export default function Videos() {
         </div>
       ) : (
         // Videos List
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredVideos.map((video, index) => (
             <div
               key={video.id}
-              className="animate-on-scroll glass-card rounded-xl overflow-hidden"
+              className="animate-on-scroll glass-card rounded-xl overflow-hidden flex flex-col"
               style={{ transitionDelay: `${Math.min(index * 100, 300)}ms` }}
             >
               {/* Video Player - YouTube ou Local */}
@@ -292,31 +292,26 @@ export default function Videos() {
               ) : null}
 
               {/* Video Info */}
-              <div className="p-5">
-                <h3 className="text-lg font-sans font-semibold text-white mb-3">
+              <div className="p-4 flex-1 flex flex-col">
+                <h3 className="text-sm font-sans font-semibold text-white mb-2 line-clamp-2">
                   {video.title}
                 </h3>
-                <div className="flex flex-wrap items-center gap-3 mb-2">
-                  <span className="px-3 py-1 bg-violet-500/20 text-violet-300 text-xs rounded-full font-sans font-medium">
+                <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
+                  <span className="px-2 py-0.5 bg-violet-500/20 text-violet-300 rounded-full font-sans font-medium">
                     {video.type}
                   </span>
-                  <span className="text-zinc-500 font-sans text-sm">
-                    {video.artist}
-                  </span>
-                  <span className="text-zinc-600">•</span>
-                  <span className="text-zinc-500 font-sans text-sm">
-                    {video.date}
-                  </span>
-                  <span className="text-zinc-600">•</span>
-                  <span className="text-zinc-500 font-sans text-sm">
+                  <span className="text-zinc-500 font-sans">
                     {video.duration}
                   </span>
                 </div>
-                <div className="flex flex-wrap gap-2 mt-3">
+                <p className="text-zinc-500 font-sans text-xs mb-2">
+                  {video.artist}
+                </p>
+                <div className="flex flex-wrap gap-1.5 mt-auto">
                   {video.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-zinc-800/80 text-zinc-400 text-xs rounded-full font-sans"
+                      className="px-2 py-0.5 bg-zinc-800/80 text-zinc-400 text-xs rounded-full font-sans"
                     >
                       {tag}
                     </span>
