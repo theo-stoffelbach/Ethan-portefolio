@@ -40,11 +40,7 @@ export default function Header() {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className={`flex justify-between items-center transition-all duration-300 ${
-            isScrolled ? 'h-14 sm:h-16' : 'h-16 sm:h-20'
-          }`}
-        >
+        <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
           <Link
             href="/"
