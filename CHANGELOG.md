@@ -2,6 +2,82 @@
 
 Toutes les modifications notables du projet sont documentees ici.
 
+## [1.2.0] - 2025-12-27
+
+### Securite
+
+- **next.config.ts** : Ajout des headers de securite
+  - X-Content-Type-Options: nosniff
+  - X-Frame-Options: DENY
+  - X-XSS-Protection: 1; mode=block
+  - Referrer-Policy: strict-origin-when-cross-origin
+  - Permissions-Policy: camera=(), microphone=(), geolocation=()
+  - Strict-Transport-Security (HSTS)
+  - Desactivation des source maps en production
+
+- **app/api/contact/route.ts** : Securisation complete de l'API
+  - Rate limiting (5 requetes/heure par IP)
+  - Validation stricte des entrees (longueur, format)
+  - Sanitization des donnees (suppression balises HTML)
+  - Protection contre l'injection email
+  - Headers X-RateLimit dans les reponses
+  - Ne retourne plus les donnees sensibles
+
+### Performance
+
+- **lib/fonts.ts** : Nouveau fichier - Fonts optimisees avec next/font
+  - Playfair Display et Inter precharges
+  - Variables CSS pour Tailwind
+  - Elimination du render-blocking @import
+
+- **app/layout.tsx** : Integration des fonts optimisees
+  - Variables CSS sur la balise html
+  - Font sans par defaut sur body
+
+- **app/globals.css** : Suppression de l'import Google Fonts bloquant
+
+- **tailwind.config.ts** : Utilisation des variables CSS pour les fonts
+
+- **app/page.tsx** : Optimisation des images
+  - Ajout de `sizes` sur l'image portrait
+  - Suppression de `unoptimized` sur les miniatures YouTube
+  - Ajout de `sizes` responsive sur les miniatures
+
+- **app/videos/page.tsx** : Meme optimisation des miniatures YouTube
+
+- **next.config.ts** : Configuration images amelioree
+  - Formats AVIF et WebP
+  - Cache TTL de 1 an
+
+### Core Web Vitals
+
+- **components/Header.tsx** : Correction du CLS (Cumulative Layout Shift)
+  - Hauteur fixe au lieu de variable au scroll
+  - Elimine le saut de layout
+
+- **components/Footer.tsx** : Conversion en Server Component
+  - Suppression de "use client" inutile
+  - Reduction du bundle JavaScript client
+
+---
+
+## Fichiers modifies (v1.2.0)
+
+| Fichier | Type de modification |
+|---------|---------------------|
+| `next.config.ts` | Modifie - Headers securite + images |
+| `app/api/contact/route.ts` | Modifie - Rate limiting + validation |
+| `lib/fonts.ts` | Nouveau - Fonts next/font |
+| `app/layout.tsx` | Modifie - Integration fonts |
+| `app/globals.css` | Modifie - Suppression @import |
+| `tailwind.config.ts` | Modifie - Variables fonts |
+| `app/page.tsx` | Modifie - Images optimisees |
+| `app/videos/page.tsx` | Modifie - Images optimisees |
+| `components/Header.tsx` | Modifie - Hauteur fixe CLS |
+| `components/Footer.tsx` | Modifie - Server Component |
+
+---
+
 ## [1.1.0] - 2025-12-27
 
 ### Performance
