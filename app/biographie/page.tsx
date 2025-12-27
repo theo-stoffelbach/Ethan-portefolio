@@ -1,3 +1,17 @@
+import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Biographie - Ethan Desmarest | Pianiste & Compositeur",
+  description:
+    "Découvrez le parcours d'Ethan Desmarest, pianiste et compositeur passionné. Formation au Conservatoire Henri Duparc, influences classiques et jazz.",
+  openGraph: {
+    title: "Biographie - Ethan Desmarest",
+    description: "Pianiste et compositeur - Parcours et influences musicales",
+    type: "profile",
+  },
+};
+
 export default function Biographie() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
@@ -22,10 +36,13 @@ export default function Biographie() {
       <section className="mb-16 sm:mb-20 grid md:grid-cols-2 gap-12 items-center">
         <div>
           <div className="aspect-square rounded-xl overflow-hidden border border-violet-500/30 relative group">
-            <img
+            <Image
               src="/images/ethan.webp"
-              alt="Ethan Desmarest"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              alt="Ethan Desmarest au piano"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-violet-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
