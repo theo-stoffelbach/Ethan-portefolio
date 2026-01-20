@@ -4,38 +4,41 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # Utilise le self-hosted runner sur le NAS (plus besoin de SSH!)
+    runs-on: [self-hosted, nas, personal]
 
     steps:
-      - name: Deploy and rebuild
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy locally on NAS
         run: |
-          # Setup SSH
-          mkdir -p ~/.ssh
-          echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p $DEPLOY_PORT $DEPLOY_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
-          
-          # Connecter au serveur et rebuild
-          ssh -i ~/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST << 'EOF'
-            # Aller dans le répertoire et récupérer le code
-            cd /volume1/Docker_data/Ethan-portefolio
-            git pull origin main
-            
-            # Rebuild l'image Docker avec le nouveau code
-            sudo docker build -t ethan-portfolio:local .
-            
-            # Redémarrer le container
-            cd /volume1/Docker_data/ethan-portfolio
-            sudo docker compose down
-            sudo docker compose up -d
-            
-            echo "Déploiement terminé !"
-          EOF
+          cd /volume2/docker/Ethan-portefolio
+
+          # Pull les derniers changements
+          git fetch origin
+          git checkout main
+          git pull origin main
+
+          # Rebuild l'image Docker
+          docker build -t ethan-portfolio:local .
+
+          # Redémarrer le container
+          docker compose down
+          docker compose up -d
+
+          echo "Deployment completed!"
+
+      - name: Health check
+        run: |
+          # Attendre que le service soit prêt
+          sleep 5
+
+          # Vérifier que le container tourne
+          docker ps | grep -i ethan || exit 1
+
+          echo "Container is running!"
