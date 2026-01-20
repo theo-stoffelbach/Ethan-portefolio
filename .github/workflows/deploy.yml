@@ -8,7 +8,6 @@ on:
 
 jobs:
   deploy:
-    # Utilise le self-hosted runner sur le NAS (plus besoin de SSH!)
     runs-on: [self-hosted, nas, personal]
 
     steps:
@@ -16,8 +15,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy locally on NAS
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Fix git ownership issue
+          git config --global --add safe.directory /volume2/docker/Ethan-portefolio
+
           cd /volume2/docker/Ethan-portefolio
+
+          # Configure git credentials
+          git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 
           # Pull les derniers changements
           git fetch origin
@@ -35,10 +42,6 @@ jobs:
 
       - name: Health check
         run: |
-          # Attendre que le service soit prêt
           sleep 5
-
-          # Vérifier que le container tourne
           docker ps | grep -i ethan || exit 1
-
           echo "Container is running!"
