@@ -1,0 +1,57 @@
+# =============================================================================
+# 🎨 ETHAN-PORTFOLIO - DEPLOY TO GHCR
+# =============================================================================
+# Build et push de l'image sur GHCR
+# Watchtower sur le NAS détecte et redéploie automatiquement
+# =============================================================================
+
+name: 🚀 Deploy to GHCR
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '**/*'
+      - '.github/workflows/deploy-ghcr.yml'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/theos-projects-ynov/ethan-portfolio
+
+jobs:
+  build:
+    name: 🏗️ Build & Push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - uses: docker/setup-buildx-action@v3
+      
+      - name: 🏗️ Build & Push Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha,scope=ethan-portfolio
+          cache-to: type=gha,mode=max,scope=ethan-portfolio
+      
+      - name: ✅ Summary
+        run: |
+          echo "🎉 Image poussée sur GHCR !"
+          echo ""
+          echo "Image: ${{ env.IMAGE_NAME }}:latest"
+          echo ""
+          echo "⏰ Watchtower va détecter et redémarrer automatiquement."

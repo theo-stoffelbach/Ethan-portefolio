@@ -1,0 +1,30 @@
+# =============================================================================
+# 🎨 ETHAN-PORTFOLIO - PRODUCTION (GHCR + WATCHTOWER)
+# =============================================================================
+# Utilise l'image pré-buildée depuis GHCR
+# Watchtower met à jour automatiquement le container
+# =============================================================================
+
+services:
+  ethan-portfolio:
+    image: ghcr.io/theos-projects-ynov/ethan-portfolio:latest
+    container_name: ethan_portfolio
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - webnet
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  webnet:
+    external: true

@@ -2,7 +2,13 @@ services:
   ethan-portfolio:
     build: .
     ports:
-      - "3000:3000"
+      - "127.0.0.1:${PORT:-3000}:3000"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    external: true
