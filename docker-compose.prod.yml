@@ -7,7 +7,7 @@
 
 services:
   ethan-portfolio:
-    image: ghcr.io/theos-projects-ynov/ethan-portfolio:latest
+    image: ghcr.io/theo-stoffelbach/ethan-portefolio:latest
     container_name: ethan_portfolio
     restart: unless-stopped
     ports:
