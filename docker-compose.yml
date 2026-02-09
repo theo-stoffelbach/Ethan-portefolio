@@ -7,8 +7,8 @@ services:
     environment:
       - NODE_ENV=production
     networks:
-      - webnet
+      - npm-public
 
 networks:
-  webnet:
+  npm-public:
     external: true
