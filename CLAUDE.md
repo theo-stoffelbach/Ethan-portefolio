@@ -155,7 +155,7 @@ docker exec nginx_reverse_proxy nginx -s reload
 ## 🔗 Liens utiles
 
 - **Site:** https://ethan.theo-stoffelbach.fr
-- **GitHub Actions:** https://github.com/Theos-projects-ynov/Ethan-portefolio/actions
+- **GitHub Actions:** https://github.com/theo-stoffelbach/Ethan-portefolio/actions
 
 ---
 
