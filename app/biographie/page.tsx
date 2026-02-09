@@ -37,7 +37,7 @@ export default function Biographie() {
         <div>
           <div className="aspect-square rounded-xl overflow-hidden border border-violet-500/30 relative group">
             <Image
-              src="/images/ethan.webp"
+              src="/images/ethan-new.png"
               alt="Ethan Desmarest au piano"
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"

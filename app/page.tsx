@@ -106,7 +106,7 @@ export default function Home() {
             <div className="order-2 md:order-1 animate-fade-in-up animation-delay-200">
               <div className="aspect-square rounded-2xl overflow-hidden border border-violet-500/30 relative group">
                 <Image
-                  src="/images/portrait.webp"
+                  src="/images/ethan-new.png"
                   alt="Ethan Desmarest - Pianiste"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
