@@ -15,7 +15,7 @@ Ce document fournit les informations essentielles pour le développement et le d
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    Nginx Proxy                       │
-│         (https://ethan.theo-stoffelbach.fr)         │
+│         (https://ethan-desmarest.fr)         │
 └─────────────────────────────────────────────────────┘
                            │
                       webnet network
@@ -123,7 +123,7 @@ docker logs -f watchtower-central
 
 Le fichier est créé : `/volume2/docker/nginx-proxy/nginx/conf.d/ethan-portefolio.conf`
 
-**Domaine:** https://ethan.theo-stoffelbach.fr
+**Domaine:** https://ethan-desmarest.fr
 
 ---
 
@@ -136,7 +136,7 @@ cd /volume2/docker/nginx-proxy
 docker compose run --rm certbot certonly \
   --webroot \
   --webroot-path=/var/www/certbot \
-  -d ethan.theo-stoffelbach.fr
+  -d ethan-desmarest.fr
 
 # Recharger Nginx
 docker exec nginx_reverse_proxy nginx -s reload
@@ -154,7 +154,7 @@ docker exec nginx_reverse_proxy nginx -s reload
 
 ## 🔗 Liens utiles
 
-- **Site:** https://ethan.theo-stoffelbach.fr
+- **Site:** https://ethan-desmarest.fr
 - **GitHub Actions:** https://github.com/theo-stoffelbach/Ethan-portefolio/actions
 
 ---
