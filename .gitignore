@@ -1,7 +1,10 @@
 # dependencies
 /node_modules
+vendor/
 /.pnp
 .pnp.js
+*.tsbuildinfo
+*.backup
 
 # testing
 /coverage

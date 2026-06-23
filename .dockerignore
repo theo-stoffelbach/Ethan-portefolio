@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+dist
+build
+.git
+.github
+.env
+.env.*
+*.log
+coverage
+public/images/*.backup
